@@ -2,6 +2,7 @@ import Vue from 'nativescript-vue'
 import App from './components/App'
 import VueDevtools from 'nativescript-vue-devtools'
 import {router} from "./router";
+import {store} from './store'
 
 
 if (TNS_ENV !== 'production') {
@@ -14,5 +15,6 @@ router.replace('/login');
 
 new Vue({
     router: router,
+    store: store,
     render: h => h('frame', [h(App)])
 }).$start();
