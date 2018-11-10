@@ -86,8 +86,6 @@
                 }
             },
             forgotPassword() {
-                this.$router.push('/detail');
-                return;
                 prompt({
                     title: "Forgot Password",
                     message: "Enter the email address you used to register for APP NAME to reset your password.",
@@ -121,9 +119,13 @@
             },
             login() {
                 console.log('login');
+                this.$store.commit('login');
+                this.$router.push('/detail');
             },
             register() {
                 console.log('register');
+                this.$store.commit('login');
+                this.$router.push('/detail');
             },
             alert(message) {
                 return alert({
