@@ -45,5 +45,9 @@
     "webpack": "^4.16.4",
     "webpack-bundle-analyzer": "~2.13.1",
     "webpack-cli": "^3.1.0"
+  },
+  "scripts": {
+    "a": "tns run android --bundle",
+    "i": "tns run ios --bundle"
   }
 }
