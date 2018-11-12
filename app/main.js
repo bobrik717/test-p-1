@@ -4,7 +4,6 @@ import VueDevtools from 'nativescript-vue-devtools'
 import {router} from "./router";
 import {store} from './store'
 
-
 if (TNS_ENV !== 'production') {
     Vue.use(VueDevtools)
 }

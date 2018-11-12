@@ -2,6 +2,7 @@ import Vue from 'nativescript-vue'
 import VueRouter from 'vue-router'
 import Login from './components/login/login'
 import Detail from './components/Detail'
+import Home from './components/Home'
 import {store} from './store'
 
 Vue.use(VueRouter);
@@ -26,6 +27,7 @@ export const router = new VueRouter({
     routes: [
         {path: '/login', component: Login},
         {path: '/detail', component: Detail, beforeEnter: beforeRouterEnter},
+        {path: '/home', component: Home, beforeEnter: beforeRouterEnter},
         {path: '*', redirect: '/login'}
     ]
 });

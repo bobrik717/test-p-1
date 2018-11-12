@@ -63,6 +63,7 @@
 <script>
     import {User} from "../user/user-model";
     import {alert, prompt} from "tns-core-modules/ui/dialogs";
+    import * as http from "http";
 
     export default {
         name: "login",
@@ -70,7 +71,7 @@
             return {
                 isLoggingIn: true,
                 user: new User(),
-
+                apiUrl: 'http://93.77.105.26:8080/',
             };
         },
         methods: {
@@ -95,13 +96,12 @@
                     cancelButtonText: "Cancel"
                 }).then((data) => {
                     if (data.result) {
-                        console.log('res');
-                        //this.userService.resetPassword(data.text.trim())
-                        //.then(() => {
-                        //  this.alert("Your password was successfully reset. Please check your email for instructions on choosing a new password.");
-                        //}).catch(() => {
-                        //  this.alert("Unfortunately, an error occurred resetting your password.");
-                        //});
+                        this.userService.resetPassword(data.text.trim())
+                        .then(() => {
+                         this.alert("Your password was successfully reset. Please check your email for instructions on choosing a new password.");
+                        }).catch(() => {
+                         this.alert("Unfortunately, an error occurred resetting your password.");
+                        });
                     }
                 });
             },
@@ -118,14 +118,28 @@
                 }
             },
             login() {
-                console.log('login');
-                this.$store.commit('login');
-                this.$router.push('/detail');
+                http.getJSON(this.apiUrl + 'login/?email=' + this.user.email + '&password=' + this.user.password).then(res => {
+                    console.log('login method res', res);
+                    if(res) {
+                        this.$store.commit('login');
+                        this.$router.push('/home');
+                    }
+                }).catch(error => {
+                    console.log(error);
+                });
+
             },
             register() {
-                console.log('register');
-                this.$store.commit('login');
-                this.$router.push('/detail');
+                http.getJSON(this.apiUrl + 'register/?email=' + this.user.email + '&password=' + this.user.password)
+                    .then( res => {
+                        if(res) {
+                            this.$store.commit('login');
+                            this.$router.push('/home');
+                        }
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    });
             },
             alert(message) {
                 return alert({
